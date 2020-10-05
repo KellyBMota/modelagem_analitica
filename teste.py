@@ -19,7 +19,7 @@ plt.rcParams.update({'figure.figsize': (10, 7), 'figure.dpi': 120})
 dateparse = lambda dates: dt.datetime.strptime(dates, "%Y-%m-%dT%H:%M:%S.%f%z")
 
 # Import as Dataframe
-df = pd.read_csv('ElectricDemandForecasting-DL-master_data_hourly_20140102_20191101_train.csv', parse_dates=['datetime'], index_col='datetime', date_parser=dateparse)
+df = pd.read_csv('ElectricDemandForecasting-DL-master_data_hourly_20140102_20191101_train.csv', parse_dates=['datetime'], date_parser=dateparse)
 
 #reset
 df.reset_index(inplace=True)
@@ -30,6 +30,8 @@ df['datetime'] = pd.to_datetime(df['datetime'], utc=True)
 # # perform GroupBy operation over monthly frequency
 table_per_year = df.set_index('datetime').groupby(pd.Grouper(freq='Y'))['value'].mean().reset_index()
 table_per_month = df.set_index('datetime').groupby(pd.Grouper(freq='M'))['value'].mean().reset_index()
+
+plt.plot(table_per_year)
 
 #unic years
 table_per_year['year'] = [d.year for d in table_per_year.datetime]
