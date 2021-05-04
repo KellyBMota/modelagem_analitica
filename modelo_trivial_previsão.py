@@ -42,12 +42,19 @@ def plot_df_train(df_train, x, y, title="", xlabel='datetime', ylabel='value', d
 # GRÁFICO INICIAL
 plot_df_train(df_train, x=df_train.datetime, y=df_train.value, title='Eletric Demand Forecasting')
 
+
+#Previsão de 4h em 4h pula 24 valores e pega o ultimo valor
+
 # MODELO NAIVE DE PREVISÃO
 dd= np.asarray(df_train.value)
 y_hat = df_test.copy()
 
 # PEGA O ULTIMO VALOR
 y_hat['naive'] = dd[len(dd)-1]
+
+    for i in range(1,len(y_hat)):
+    y_hat.naive[i] = y_hat.value[i-1]
+
 
 # PLOTANDO RESULTADO
 plt.figure(figsize=(12,8))
