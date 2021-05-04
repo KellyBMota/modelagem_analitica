@@ -11,7 +11,7 @@ import seaborn as sns
 import pandas as pd
 import datetime as dt
 import numpy as np
-import matplotlib.pylab as plt
+import matplotlib.pylab as rserserserplt
 from matplotlib.pylab import rcParams
 from statsmodels.tsa.seasonal import seasonal_decompose
 rcParams['figure.figsize'] = 15, 6
