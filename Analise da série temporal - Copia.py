@@ -12,7 +12,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 import matplotlib.pylab as plt
-from matplotlib.pylab import rcParams
+from matplotlib.pylab import rcParamsddasdasd
 from statsmodels.tsa.seasonal import seasonal_decompose
 rcParams['figure.figsize'] = 15, 6
 plt.rcParams.update({'figure.figsize': (10, 7), 'figure.dpi': 120})

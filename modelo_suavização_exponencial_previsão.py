@@ -39,16 +39,22 @@ def plot_df_train(df_train, x, y, title="", xlabel='datetime', ylabel='value', d
 
 # GRÁFICO INICIAL
 plot_df_train(df_train, x=df_train.datetime, y=df_train.value, title='Eletric Demand Forecasting')
+    
+# MODELO DE SUAVIZAÇÃO EXPONENCIAL DE PREVISÃO
+dd= np.asarray(df_train.value)
+y_hat = df_test.copy()
 
-# MODELO SIMPLE EXPONENTIAL SMOOTHING
-from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
+# PEGA O ULTIMO VALOR
+y_hat['ES'] = dd[len(dd)-1]
+alpha = 0.3
+for i in range(1,len(y_hat)):
+    y_hat.ES[i] = alpha * y_hat.ES[i] + (1 - alpha) * y_hat.value[i-1]
 
-y_hat_avg = df_test.copy()
-fit2 = SimpleExpSmoothing(np.asarray(df_train['value'])).fit(smoothing_level=0.6,optimized=False)
-y_hat_avg['SES'] = fit2.forecast(len(df_test))
-plt.figure(figsize=(16,8))
+# PLOTANDO RESULTADO
+plt.figure(figsize=(12,8))
 plt.plot(df_train.datetime, df_train['value'], label='Train')
-plt.plot(df_test.datetime, df_test['value'], label='Test')
-plt.plot(y_hat_avg.datetime, y_hat_avg['SES'], label='SES')
+plt.plot(df_test.datetime,df_test['value'], label='Test')
+plt.plot(y_hat.datetime,y_hat['ES'], label='Exponencial Smoothing Forecast')
 plt.legend(loc='best')
+plt.title("Exponencial Smoothing Forecast")
 plt.show()
