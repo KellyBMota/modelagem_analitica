@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: kelly
+@author: kelly mota
 """
 
 import matplotlib.pyplot as plt
